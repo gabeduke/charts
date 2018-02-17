@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
-    draft: {{ default "draft-app" .Values.draft }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app: {{ template "fullname" . }}
 spec:
@@ -11,7 +10,6 @@ spec:
   template:
     metadata:
       labels:
-        draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}
     spec:
       containers:

@@ -3,7 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ template "fullname" . }}-configmap
   labels:
-    draft: {{ default "draft-app" .Values.draft }}
     app: {{ template "fullname" . }}
 data:
   {{- range $key, $value := .Values.configmap }}

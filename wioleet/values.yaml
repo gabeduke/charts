@@ -1,16 +1,16 @@
-# Default values for python.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 replicaCount: 1
+
 image:
   repository: wioleet
   tag: v0.1.0
   pullPolicy: Always
+
 service:
   name: python
   type: ClusterIP
   externalPort: 80
   internalPort: 8080
+
 resources:
   limits:
     cpu: 100m
@@ -18,4 +18,31 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-draft: wioleet-python
+
+secrets:
+## Tokens are Required
+#  USER_TOKEN: xxx
+#  NODE_TOKEN: xxx
+
+configmap:
+  BASE_URL: https://us.wio.seeed.io/
+  DB_NAME: 'dbleet'
+  DB_HOST: 'wioleet-influxdb'
+  DB_PORT: 8086
+  NODE_SENSOR: 'analog'
+  NODE_PARAM: 'analog'
+  NODE_SCHEDULE: 300
+  PYTHONUNBUFFERED: 0
+  SENSOR_TAG: 'soil2'
+
+image:
+  repository: docker.io/dukeman/wioleet
+  tag: v1.0
+  command: daemon
+
+influxdb:
+## Enable to include database in deployment
+  enabled: false
+  env:
+  - name: INFLUXDB_DB
+    value: "dbleet"
